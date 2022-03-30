@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Contrast CLI
-        run: npm install & npm install -g @contrast/contrast-cli@0.0.31
+        run: npm install -g @contrast/contrast-cli@0.0.31
         
       - name: Upload and Scan File
-        run: contrast-cli --report --fail --cve_severity high --cve_threshold 0 --api_key ${{ secrets.CONTRAST_API_KEY }} --authorization ${{ secrets.CONTRAST_USER_AUTH_HEADER }} --organization_id $CONTRAST_ORGANIZATION_ID --host $CONTRAST_API_URL --application_id $CONTRAST_APPLICATION_ID --language JAVA
+        run: contrast-cli --report --cve_severity high --cve_threshold 0 --api_key ${{ secrets.CONTRAST_API_KEY }} --authorization ${{ secrets.CONTRAST_USER_AUTH_HEADER }} --organization_id $CONTRAST_ORGANIZATION_ID --host $CONTRAST_API_URL --application_id $CONTRAST_APPLICATION_ID --language JAVA
