@@ -1,0 +1,33 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  contrast-oss-scan:
+    name: Run Contrast OSS Scan
+    runs-on: ubuntu-latest
+    env:
+      CONTRAST_ORGANIZATION_ID: 05f247b3-a388-4928-90f6-15a0dd2d997f
+      CONTRAST_API_URL: https://apptwo.contrastsecurity.com/Contrast
+      CONTRAST_APPLICATION_ID: 40f00010-c3cb-478a-83e7-692119cb52da
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v2
+
+      - name: Install Contrast CLI
+        run: npm install & npm install -g @contrast/contrast-cli@0.0.31
+        
+      - name: Upload and Scan File
+        run: contrast-cli --report --fail --cve_severity high --cve_threshold 0 --api_key ${{ secrets.CONTRAST_API_KEY }} --authorization ${{ secrets.CONTRAST_USER_AUTH_HEADER }} --organization_id $CONTRAST_ORGANIZATION_ID --host $CONTRAST_API_URL --application_id $CONTRAST_APPLICATION_ID --language JAVA
