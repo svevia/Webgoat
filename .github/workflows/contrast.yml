@@ -63,7 +63,7 @@ jobs:
           # The ID of your organization in Contrast (required).
           orgId: $CONTRAST_ORGANIZATION_ID
           # The name of the host. Includes the protocol section of the URL (https://). Defaults to https://ce.contrastsecurity.com. (optional)
-          apiUrl: $CONTRAST_API_URL # optional, default is https://ce.contrastsecurity.com
+          apiUrl: $CONTRAST_API_URL
           # The Artifact to Scan on the Contrast Platform.
           artifact: webgoat.jar
           # The name of the project you want to scan in Contrast.
