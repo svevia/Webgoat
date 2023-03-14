@@ -79,8 +79,8 @@ jobs:
           #severity: # optional
           # When set to true, fails the action if CVEs have been detected that match at least the severity option specified.
           fail: false # optional
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: results.sarif
+      #- name: Upload SARIF file
+      #  uses: github/codeql-action/upload-sarif@v2
+      #  with:
+      #    sarif_file: results.sarif
         
