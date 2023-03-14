@@ -25,9 +25,25 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
-
-      - name: Install Contrast CLI
-        run: npm install -g @contrast/contrast-cli
         
-      - name: Upload and Scan File
-        run: contrast-cli --report --cve_severity high --cve_threshold 0 --api_key ${{ secrets.CONTRAST_API_KEY }} --authorization ${{ secrets.CONTRAST_USER_AUTH_HEADER }} --organization_id $CONTRAST_ORGANIZATION_ID --host $CONTRAST_API_URL --application_id $CONTRAST_APPLICATION_ID --language JAVA
+      - name: Contrast Security SCA
+        # You may pin to the exact commit or the version.
+        # uses: Contrast-Security-OSS/contrast-sca-action@0a234a04ffdff74336bb242f1898820c87de90e2
+        uses: Contrast-Security-OSS/contrast-sca-action@v1
+        with:
+          # An agent API key provided by Contrast (required).
+          apiKey: ${{ secrets.CONTRAST_API_KEY }}
+          # User authorization credentials provided by Contrast (required).
+          authHeader: ${{ secrets.CONTRAST_USER_AUTH_HEADER }}
+          # The ID of your organization in Contrast (required).
+          orgId: $CONTRAST_ORGANIZATION_ID
+          # Specify the directory in which to search for project configuration files (required).
+          filePath: .
+          # The name of the host. Includes the protocol section of the URL (https://). Defaults to https://ce.contrastsecurity.com. (optional)
+          apiUrl: $CONTRAST_API_URL
+          # Allows user to report libraries with vulnerabilities above a chosen severity level. Values for level are high, medium or low. (Note: Use this input in combination with the fail input, otherwise the action will exit)
+          severity: # optional
+          # When set to true, fails the action if CVEs have been detected that match at least the severity option specified.
+          fail: # optional
+          # When set to true, excludes developer dependencies from the results.
+          ignoreDev: # optional
