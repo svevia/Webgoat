@@ -15,8 +15,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  contrast-oss-scan:
-    name: Run Contrast OSS Scan
+  contrast:
+    name: Run Contrast platform
     runs-on: ubuntu-latest
     env:
       CONTRAST_ORGANIZATION_ID: 05f247b3-a388-4928-90f6-15a0dd2d997f
@@ -79,5 +79,8 @@ jobs:
           #severity: # optional
           # When set to true, fails the action if CVEs have been detected that match at least the severity option specified.
           fail: false # optional
-          
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif
         
