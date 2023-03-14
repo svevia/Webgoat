@@ -61,7 +61,7 @@ jobs:
           # User authorization credentials provided by Contrast (required).
           authHeader: ${{ secrets.CONTRAST_USER_AUTH_HEADER }}
           # The ID of your organization in Contrast (required).
-          orgId: $CONTRAST_ORGANIZATION_ID
+          orgId: 05f247b3-a388-4928-90f6-15a0dd2d997f
           # The name of the host. Includes the protocol section of the URL (https://). Defaults to https://ce.contrastsecurity.com. (optional)
           #apiUrl: $CONTRAST_API_URL
           apiUrl: https://apptwo.contrastsecurity.com
