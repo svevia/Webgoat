@@ -15,10 +15,6 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
-    name: build
-    runs-on: maven:3.8.1-openjdk-15
-    
   contrast:
     name: Run Contrast platform
     runs-on: maven:3.8.1-openjdk-15
