@@ -17,7 +17,7 @@ on:
 jobs:
   contrast:
     name: Run Contrast platform
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     env:
       CONTRAST_ORGANIZATION_ID: 05f247b3-a388-4928-90f6-15a0dd2d997f
       CONTRAST_API_URL: https://apptwo.contrastsecurity.com
