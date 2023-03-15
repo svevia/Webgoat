@@ -17,7 +17,7 @@ on:
 jobs:
   contrast:
     name: Run Contrast platform
-    runs-on: maven:3.8.1-openjdk-15
+    runs-on: ubuntu:latest
     env:
       CONTRAST_ORGANIZATION_ID: 05f247b3-a388-4928-90f6-15a0dd2d997f
       CONTRAST_API_URL: https://apptwo.contrastsecurity.com
@@ -50,6 +50,14 @@ jobs:
           fail: false# optional
           # When set to true, excludes developer dependencies from the results.
           #ignoreDev: # optional
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3.10.0
+        with:
+          java-version: '18'
+          distribution: 'adopt'
+          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+          settings-path: ${{ github.workspace }} # location for the settings.xml file
+
       - name: build
         run: |
           echo "starting build"
