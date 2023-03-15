@@ -15,12 +15,20 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  build:
+    name: build
+    runs-on: maven:3.8.1-openjdk-15
+    
   contrast:
     name: Run Contrast platform
-    runs-on: ubuntu-latest
+    runs-on: maven:3.8.1-openjdk-15
     env:
       CONTRAST_ORGANIZATION_ID: 05f247b3-a388-4928-90f6-15a0dd2d997f
       CONTRAST_API_URL: https://apptwo.contrastsecurity.com
+      AGENT_API_KEY: Zs9ABSWrGXiShYOlluAXg5x5E6VHf74n
+      AGENT_SERVICE_KEY: V85UG80XZH4QOMQ6
+      AGENT_URL: https://apptwo.contrastsecurity.com/Contrast
+      AGENT_USER_NAME: agent_05f247b3-a388-4928-90f6-15a0dd2d997f@AurelienSveviSandbow
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
@@ -46,6 +54,13 @@ jobs:
           fail: false# optional
           # When set to true, excludes developer dependencies from the results.
           #ignoreDev: # optional
+      - name: build
+        run: |
+          echo "starting build"
+          curl -L "https://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=com.contrastsecurity&a=contrast-agent&v=LATEST" > /tmp/contrast.jar
+          export MAVEN_OPTS="-javaagent:/tmp/contrast.jar -Dcontrast.api.url=$AGENT_URL -Dcontrast.api.api_key=$AGENT_API_KEY -Dcontrast.api.service_key=$AGENT_SERVICE_KEY -Dcontrast.api.user_name=$AGENT_USER_NAME -Dcontrast.agent.java.standalone_app_name=Webgoat -Dcontrast.server.environment=QA  -Dcontrast.server.name=Github
+          mvn -Dtest="org/owasp/webgoat/*"  -Dmaven.test.failure.ignore=true -DfailIfNoTests=false clean install
+      
       - name: wget
         uses: wei/wget@v1
         with:
